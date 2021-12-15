@@ -21,6 +21,12 @@ async function run() {
     const database = client.db("kacha_bazer");
     const productCollection = database.collection("products");
 
+    // get all produce from database
+    app.get("/products", async (req, res) => {
+      const result = await productCollection.find({}).toArray();
+      res.json(result);
+    });
+    // post a single product from client side
     app.post("/products", async (req, res) => {
       const product = req.body;
       const result = await productCollection.insertOne(product);
